@@ -61,3 +61,22 @@ SELECT A.name, O.full_name FROM animals A JOIN owners O ON O.id = A.owner_id WHE
 
 /*who owns the most animal*/
 SELECT owners.full_name, COUNT(animals.name) FROM animals JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name ORDER BY count DESC LIMIT 1;
+
+
+SELECT animals.name, visits.date_of_visit FROM animals JOIN visits ON animals.id = visits.animals_id WHERE visits.vets_id =1 ORDER BY visits.date_of_visit DESC LIMIT 1;
+
+SELECT COUNT(animals.name) FROM animals JOIN visits ON animals.id = visits.animals_id WHERE visits.vets_id =3;
+
+SELECT vets.name,species.name FROM vets LEFT JOIN specializations ON vets.id = specializations.vets_id FULL JOIN species ON species.id = specializations.species_id;
+
+SELECT animals.name FROM animals JOIN visits ON visits.animals_id = animals.id WHERE visits.vets_id =3 AND date_of_visit BETWEEN '2020-04-01' and '2020-08-30';
+
+SELECT animals.name, COUNT(*) as visited FROM animals FULL JOIN visits ON animals.id = visits.animals_id FULL JOIN vets ON vets.id = visits.vets_id GROUP BY animals.name ORDER BY visited DESC LIMIT 1;
+
+SELECT animals.name, visits.date_of_visit FROM animals JOIN visits ON animals.id = visits.animals_id WHERE visits.vets_id =2 ORDER BY visits.date_of_visit LIMIT 1;
+
+SELECT animals.name, visits.date_of_visit, vets.name FROM animals JOIN visits ON animals.id = visits.animals_id JOIN vets ON vets.id = visits.vets_id ORDER BY visits.date_of_visit DESC LIMIT 1;
+
+SELECT visits.date_of_visit, vets.name, animals.name as animal, animals.species_id as animals_species, specializations.species_id as vet_species FROM visits INNER JOIN vets ON visits.vets_id = vets.id INNER JOIN animals ON visits.animals_id = animals.id FULL OUTER JOIN specializations ON vets.id = specializations.vets_id WHERE animals.species_id != specializations.species_id;
+
+SELECT species.name, COUNT(visits.animals_id) FROM visits JOIN vets ON vets.id = visits.vets_id JOIN animals ON visits.animals_id = animals.id  JOIN species ON species.id = animals.species_id WHERE vets.name = 'Maisy Smith' GROUP BY species.name ORDER BY count DESC LIMIT 1;
