@@ -44,3 +44,9 @@ CREATE TABLE specializations ( vets_id INT NOT NULL, species_id INT NOT NULL, FO
 CREATE TABLE visits ( vets_id INT NOT NULL, animals_id INT NOT NULL, FOREIGN KEY (vets_id) REFERENCES vets (id) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (animals_id) REFERENCES animals (id) ON UPDATE CASCADE ON DELETE RESTRICT);
 
 ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+/*create an index on animals_id column on visits table*/
+CREATE INDEX index_animals_id ON visits(animals_id);
+
+/*create an index on animals_id column on visits table*/
+CREATE INDEX index_owners_mail ON owners(email);
